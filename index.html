@@ -3,37 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Bundle Sniper</title>
+    <title>Solana Bundle Trading Bot</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- 🎯 Centered "Bundle Snipe" Button -->
-    <div class="bundle-button" onclick="showPopup('snipePopup')">
-        <span>Bundle Snipe</span>
-    </div>
+    
+    <!-- 📈 Candlestick Chart Background -->
+    <canvas id="chartCanvas"></canvas>
 
-    <!-- 🔘 Bottom Navigation -->
+    <!-- 🌕 Centered "Bundle Snipe" Button -->
+    <div class="bundle-button">Bundle Snipe</div>
+
+    <!-- 📌 Bottom Navigation -->
     <div class="bottom-nav">
-        <a href="portfolio.html" class="button">Portfolio</a>
-        <a href="trade-history.html" class="button">Trade History</a>
-        <a href="settings.html" class="button">Settings</a>
+        <button class="button">Portfolio</button>
+        <button class="button">Trade History</button>
+        <button class="button" onclick="showPopup('settingsPopup')">Settings</button>
     </div>
 
-    <!-- 📢 Bundle Snipe Pop-up -->
-    <div id="snipePopup" class="popup">
-        <h2>🚀 Bundle Snipe</h2>
-        <p>Connect your wallet to bundle snipe and trade efficiently.</p>
-        <button class="button small" onclick="closePopup('snipePopup')">Close</button>
-    </div>
-
-    <!-- 📌 JavaScript for Pop-ups -->
+    <!-- 📌 JavaScript for Chart -->
     <script>
-        function showPopup(id) {
-            document.getElementById(id).classList.add("show");
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+
+        // Generate random candlestick data
+        function generateData() {
+            let data = [];
+            let price = 20; // Start price
+            for (let i = 0; i < 20; i++) {
+                let open = price;
+                let close = open + Math.random() * 5; // Always slightly higher (bullish)
+                let high = close + Math.random() * 2;
+                let low = open - Math.random() * 2;
+                data.push({ x: i, o: open, h: high, l: low, c: close });
+                price = close; // Next candle starts where this one closed
+            }
+            return data;
         }
-        function closePopup(id) {
-            document.getElementById(id).classList.remove("show");
-        }
+
+        const chart = new Chart(ctx, {
+            type: 'candlestick',
+            data: {
+                datasets: [{
+                    label: "Bullish Market",
+                    data: generateData(),
+                    borderColor: 'rgba(20, 241, 149, 1)', // Green Candles
+                    backgroundColor: 'rgba(20, 241, 149, 0.5)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: { display: false }
+                }
+            }
+        });
+
+        // Update chart every 2 seconds to simulate a live market
+        setInterval(() => {
+            chart.data.datasets[0].data = generateData();
+            chart.update();
+        }, 2000);
     </script>
+
 </body>
 </html>
