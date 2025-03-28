@@ -8,6 +8,17 @@ body {
     padding: 0;
 }
 
+/* 📈 Full-Screen Background Candlestick Chart */
+#chartCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.2; /* Subtle effect */
+    z-index: -1; /* Keep it in the background */
+}
+
 /* 🎯 Centered "Bundle Snipe" Button */
 .bundle-button {
     position: fixed;
