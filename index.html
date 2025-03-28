@@ -3,24 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Trading Bot</title>
+    <title>Solana Bundle Sniper</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="container">
-        <h1>Welcome to Solana Trading Bot</h1>
-
-        <div class="buttons">
-            <button class="button" onclick="location.href='portfolio.html'">📊 Portfolio</button>
-            <button class="button" onclick="location.href='trade-history.html'">📜 Trade History</button>
-            <button class="button" onclick="alert('Nothing in your portfolio. Snipe some tokens to view chart.')">📈 Chart</button>
-            <button class="button" onclick="location.href='settings.html'">⚙️ Settings</button>
-        </div>
-
-        <button class="snipe-button" onclick="alert('Connect a wallet to snipe and bundle new tokens.')">Snipe</button>
+    <!-- 🎯 Centered "Bundle Snipe" Button -->
+    <div class="bundle-button" onclick="showPopup('snipePopup')">
+        <span>Bundle Snipe</span>
     </div>
 
-    <script src="script.js"></script>
+    <!-- 🔘 Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="portfolio.html" class="button">Portfolio</a>
+        <a href="trade-history.html" class="button">Trade History</a>
+        <a href="settings.html" class="button">Settings</a>
+    </div>
+
+    <!-- 📢 Pop-ups -->
+    <div id="snipePopup" class="popup">
+        <p>🚀 Connect a wallet to snipe and bundle new tokens!</p>
+        <button class="close-btn" onclick="closePopup('snipePopup')">Close</button>
+    </div>
+
+    <!-- 📌 JavaScript for Pop-ups -->
+    <script>
+        function showPopup(id) {
+            document.getElementById(id).classList.add("show");
+        }
+        function closePopup(id) {
+            document.getElementById(id).classList.remove("show");
+        }
+    </script>
 </body>
 </html>
