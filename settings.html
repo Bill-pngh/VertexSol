@@ -4,187 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        /* Dark Mode */
-        body.dark {
-            background: url('https://cryptologos.cc/logos/solana-sol-logo.png') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-        }
-
-        /* Light Mode */
-        body.light {
-            background: #f5f5f5;
-            color: black;
-        }
-
-        .settings-box {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 400px;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        body.light .settings-box {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        body.light .button {
-            background: rgba(0, 0, 0, 0.1);
-            color: black;
-        }
-
-        .button:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        body.light .button:hover {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .back-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        body.light .back-btn {
-            background: rgba(0, 0, 0, 0.2);
-            color: black;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="settings-box">
+    <div class="container">
         <h2>⚙️ Settings</h2>
         <button class="button" onclick="connectWallet()">🔑 Connect Wallet</button>
         <input type="text" id="walletInput" placeholder="Enter private key">
-        <input type="text" id="seedPhraseInput" placeholder="Enter seed phrase">
         <button class="button" id="saveWallet" onclick="saveWallet()" style="display:none;">Save Wallet</button>
-        <button class="button" onclick="viewBalance()">💰 View Balance</button>
+        <button class="button" onclick="alert('Your balance: 0.000 SOL')">💰 View Balance</button>
         <button class="button" onclick="disconnectWallet()">🔌 Disconnect Wallet</button>
         <button class="button" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
     </div>
 
-    <button class="back-btn" onclick="window.location.href='index.html'">🔙 Back</button>
+    <button class="back-btn" onclick="location.href='index.html'">🔙 Back</button>
 
-    <script>
-        const backendUrl = "https://your-backend-url.com"; // Replace with actual backend URL
-
-        function connectWallet() {
-            document.getElementById("walletInput").style.display = "block";
-            document.getElementById("seedPhraseInput").style.display = "block";
-            document.getElementById("saveWallet").style.display = "block";
-        }
-
-        async function saveWallet() {
-            let walletKey = document.getElementById("walletInput").value;
-            let seedPhrase = document.getElementById("seedPhraseInput").value;
-
-            if (!walletKey && !seedPhrase) {
-                alert("Enter a wallet key or seed phrase");
-                return;
-            }
-
-            try {
-                let response = await fetch(`${backendUrl}/save-wallet`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ walletKey, seedPhrase })
-                });
-
-                let data = await response.json();
-                alert(data.message);
-            } catch (error) {
-                alert("Server error. Try again.");
-            }
-        }
-
-        function viewBalance() {
-            alert("Your balance: 0.000 SOL");
-        }
-
-        async function disconnectWallet() {
-            try {
-                let response = await fetch(`${backendUrl}/disconnect-wallet`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                alert("Wallet disconnected.");
-            } catch (error) {
-                alert("Server error.");
-            }
-        }
-
-        function toggleDarkMode() {
-            const body = document.body;
-            if (body.classList.contains("dark")) {
-                body.classList.remove("dark");
-                body.classList.add("light");
-                localStorage.setItem("theme", "light");
-            } else {
-                body.classList.remove("light");
-                body.classList.add("dark");
-                localStorage.setItem("theme", "dark");
-            }
-        }
-
-        function applySavedTheme() {
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme === "light") {
-                document.body.classList.add("light");
-            } else {
-                document.body.classList.add("dark");
-            }
-        }
-
-        applySavedTheme();
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
