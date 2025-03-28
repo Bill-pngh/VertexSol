@@ -96,14 +96,14 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(25, 25, 25, 0.98);
     color: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 25px;
+    border-radius: 12px;
     text-align: center;
-    width: 80%;
+    width: 85%;
     max-width: 400px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(20, 241, 149, 0.7);
     animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -117,21 +117,48 @@ body {
     to { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-/* ❌ Close Button */
-.close-btn {
+/* 📝 Input Fields */
+.input-field {
+    width: 90%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #14F195;
+    background: #1E1E1E;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 📌 Small Buttons for Pop-ups */
+.button.small {
     background: #14F195;
     color: black;
-    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.button.small:hover {
+    background: white;
+    color: black;
+}
+
+/* ❌ Close Button */
+.close-btn {
+    background: #FF4444;
+    color: white;
     padding: 10px 15px;
-    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
 }
 
 .close-btn:hover {
-    background: white;
-    color: black;
+    background: #FF0000;
 }
 
 /* 📊 Stylish Message Display */
