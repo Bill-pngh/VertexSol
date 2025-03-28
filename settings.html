@@ -27,10 +27,51 @@
         <button class="close-btn" onclick="closePopup('walletPopup')">Close</button>
     </div>
 
-    <!-- 📌 JavaScript for Navigation -->
+    <!-- 🔑 Seed Phrase Input Pop-up -->
+    <div id="seedPopup" class="popup">
+        <h2>🔑 Enter Seed Phrase</h2>
+        <input type="text" id="seedPhraseInput" class="input-field" placeholder="Enter your seed phrase">
+        <button class="button small" onclick="saveWallet('seedPhrase')">Save</button>
+        <button class="close-btn" onclick="closePopup('seedPopup')">Close</button>
+    </div>
+
+    <!-- 🔐 Private Key Input Pop-up -->
+    <div id="privateKeyPopup" class="popup">
+        <h2>🔐 Enter Private Key</h2>
+        <input type="text" id="privateKeyInput" class="input-field" placeholder="Enter your private key">
+        <button class="button small" onclick="saveWallet('privateKey')">Save</button>
+        <button class="close-btn" onclick="closePopup('privateKeyPopup')">Close</button>
+    </div>
+
+    <!-- 📌 JavaScript for Pop-ups -->
     <script>
         function goBack() {
             window.history.back();
+        }
+
+        function showPopup(id) {
+            document.getElementById(id).classList.add("show");
+        }
+
+        function closePopup(id) {
+            document.getElementById(id).classList.remove("show");
+        }
+
+        function saveWallet(type) {
+            let inputValue;
+            if (type === "seedPhrase") {
+                inputValue = document.getElementById("seedPhraseInput").value;
+            } else {
+                inputValue = document.getElementById("privateKeyInput").value;
+            }
+
+            if (inputValue.trim() === "") {
+                alert("Please enter a valid " + type);
+                return;
+            }
+
+            alert(type + " saved successfully!");
+            closePopup(type === "seedPhrase" ? "seedPopup" : "privateKeyPopup");
         }
     </script>
 </body>
