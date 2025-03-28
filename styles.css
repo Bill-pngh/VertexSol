@@ -1,94 +1,109 @@
-/* 🔥 Solana Gradient Background */
+/* 🔥 Dark Mode Background */
 body {
-    font-family: 'Poppins', sans-serif;
+    background-color: #000000; /* Pure Black */
+    font-family: 'Poppins', sans-serif; /* Modern Font */
+    color: white;
     text-align: center;
     margin: 0;
     padding: 0;
+}
+
+/* 🎯 Centered "Bundle Snipe" Button */
+.bundle-button {
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background: linear-gradient(135deg, #14F195, #00D1FF);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    transition: background 0.5s, color 0.3s;
-    background: linear-gradient(-45deg, #000000, #3a0ca3, #7209b7, #560bad);
-    background-size: 400% 400%;
-    animation: gradient 8s ease infinite;
-    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(20, 241, 149, 0.8);
+    transition: all 0.3s ease-in-out;
 }
 
-/* Dark Mode */
-body.light {
-    background: white;
-    color: black;
+.bundle-button:hover {
+    background: linear-gradient(135deg, #00D1FF, #14F195);
+    box-shadow: 0 0 30px rgba(20, 241, 149, 1);
 }
 
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* 🛠️ Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
 }
 
-/* Buttons */
+/* 🔘 Navigation Buttons */
 .button {
-    display: block;
-    width: 90%;
-    padding: 12px;
-    margin: 10px auto;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #1E1E1E, #333333);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: white;
+    border: 2px solid #14F195;
+    transition: all 0.3s ease-in-out;
 }
 
 .button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
-}
-
-/* Circular Snipe Button */
-.snipe-button {
-    position: absolute;
-    bottom: 80px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.snipe-button:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: #14F195;
+    color: black;
     transform: scale(1.1);
 }
 
-/* Stylish Empty Messages */
-.empty-message {
-    font-size: 18px;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
+/* 📢 Stylish Pop-ups */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(20, 20, 20, 0.95);
+    color: white;
+    padding: 20px;
     border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Back Button */
-.back-btn {
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.2);
+.popup.show {
+    display: block;
+}
+
+/* 🔥 Pop-up Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ❌ Close Button for Pop-ups */
+.close-btn {
+    background: #14F195;
+    color: black;
     border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    background: white;
+    color: black;
 }
