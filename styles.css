@@ -1,81 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>⚙️ Settings</h1>
+/* 🔥 Dark Mode */
+body {
+    background-color: #000000;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
 
-    <!-- 🔘 Bottom-Aligned Buttons -->
-    <div class="bottom-nav">
-        <button class="button" onclick="showPopup('walletPopup')">Connect Wallet</button>
-        <button class="button" onclick="disconnectWallet()">Disconnect Wallet</button>
-        <button class="button">Balance: 0.000 SOL</button>
-    </div>
+/* 🛠️ Bottom-Aligned Buttons */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
 
-    <!-- 📢 Connect Wallet Pop-up -->
-    <div id="walletPopup" class="popup">
-        <h2>🔗 Connect Wallet</h2>
-        <button class="button small" onclick="showPopup('seedPopup')">Use Seed Phrase</button>
-        <button class="button small" onclick="showPopup('privateKeyPopup')">Use Private Key</button>
-        <button class="close-btn" onclick="closePopup('walletPopup')">Close</button>
-    </div>
+/* 🎨 Stylish Buttons */
+.button {
+    background: linear-gradient(135deg, #1E1E1E, #333333);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #14F195;
+    transition: all 0.3s ease-in-out;
+}
 
-    <!-- 🔑 Seed Phrase Input Pop-up -->
-    <div id="seedPopup" class="popup">
-        <h2>🌱 Enter Seed Phrase</h2>
-        <textarea id="seedPhrase" placeholder="Enter your 12 or 24-word seed phrase"></textarea>
-        <button class="button small" onclick="saveWallet('seedPhrase')">Save</button>
-        <button class="close-btn" onclick="closePopup('seedPopup')">Close</button>
-    </div>
+.button:hover {
+    background: #14F195;
+    color: black;
+    transform: scale(1.1);
+}
 
-    <!-- 🔑 Private Key Input Pop-up -->
-    <div id="privateKeyPopup" class="popup">
-        <h2>🔑 Enter Private Key</h2>
-        <input type="text" id="privateKey" placeholder="Enter your private key">
-        <button class="button small" onclick="saveWallet('privateKey')">Save</button>
-        <button class="close-btn" onclick="closePopup('privateKeyPopup')">Close</button>
-    </div>
+/* 📢 Beautiful Pop-ups */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(20, 20, 20, 0.95);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+}
 
-    <!-- 📌 JavaScript for Pop-ups & Wallet Handling -->
-    <script>
-        function showPopup(id) {
-            document.getElementById(id).classList.add("show");
-        }
+.popup.show {
+    display: block;
+}
 
-        function closePopup(id) {
-            document.getElementById(id).classList.remove("show");
-        }
+/* 🔥 Pop-up Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
 
-        function saveWallet(type) {
-            const data = type === "seedPhrase" ? document.getElementById("seedPhrase").value : document.getElementById("privateKey").value;
-            
-            if (!data) {
-                alert("⚠️ Please enter your " + (type === "seedPhrase" ? "seed phrase." : "private key."));
-                return;
-            }
+/* 📌 Close Button */
+.close-btn {
+    background: #14F195;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-            fetch("/api/connect-wallet", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ [type]: data })
-            })
-            .then(res => res.json())
-            .then(response => {
-                alert(response.message);
-                closePopup(type === "seedPhrase" ? "seedPopup" : "privateKeyPopup");
-            })
-            .catch(error => console.error("❌ Error:", error));
-        }
+.close-btn:hover {
+    background: white;
+    color: black;
+}
 
-        function disconnectWallet() {
-            fetch("/api/disconnect-wallet", { method: "DELETE" })
-            .then(() => alert("✅ Wallet disconnected!"))
-            .catch(error => console.error("❌ Error:", error));
-        }
-    </script>
-</body>
-</html>
+/* 🔑 Input Fields */
+textarea, input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #1E1E1E;
+    color: white;
+}
+
+/* 🎨 Smaller Buttons */
+.button.small {
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 90%;
+}
