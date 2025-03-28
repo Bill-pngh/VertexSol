@@ -1,3 +1,94 @@
+/* 🔥 Dark Mode Background */
+body {
+    background-color: #000000; /* Pure Black */
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* 🎯 Centered "Bundle Snipe" Button */
+.bundle-button {
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background: linear-gradient(135deg, #14F195, #00D1FF);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(20, 241, 149, 0.8);
+    transition: all 0.3s ease-in-out;
+    border: 3px solid white;
+}
+
+.bundle-button:hover {
+    background: linear-gradient(135deg, #00D1FF, #14F195);
+    box-shadow: 0 0 30px rgba(20, 241, 149, 1);
+    transform: translate(-50%, 50%) scale(1.1);
+}
+
+/* 🛠️ Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+/* 🔘 Navigation Buttons */
+.button {
+    background: linear-gradient(135deg, #1E1E1E, #333333);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #14F195;
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    background: #14F195;
+    color: black;
+    transform: scale(1.1);
+}
+
+/* 🔙 Back Button */
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #14F195, #00D1FF);
+    color: black;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(20, 241, 149, 0.8);
+    transition: all 0.3s ease-in-out;
+    border: 2px solid white;
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, #00D1FF, #14F195);
+    box-shadow: 0 0 15px rgba(20, 241, 149, 1);
+    transform: scale(1.1);
+}
+
 /* 📢 Beautiful Pop-ups */
 .popup {
     display: none;
@@ -41,4 +132,18 @@
 .close-btn:hover {
     background: white;
     color: black;
+}
+
+/* 📊 Stylish Message Display */
+.message-box {
+    background: linear-gradient(135deg, #1E1E1E, #333333);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 0 15px rgba(20, 241, 149, 0.8);
 }
