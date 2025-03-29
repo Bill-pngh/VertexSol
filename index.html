@@ -8,39 +8,50 @@
 </head>
 <body>
 
-    <!-- 📈 Background Chart Canvas -->
-    <canvas id="chartCanvas"></canvas>
+    <!-- 📈 Background: Live Crypto Chart -->
+    <div id="chart-background"></div>
 
     <!-- 🎯 Centered "Bundle Snipe" Button -->
-    <button class="bundle-button">Bundle Snipe</button>
+    <button class="bundle-button">🚀 Bundle Snipe</button>
 
     <!-- 📌 Bottom Navigation -->
     <div class="bottom-nav">
-        <button class="button portfolio-btn">Portfolio</button>
-        <button class="button trade-btn">Trade History</button>
-        <button class="button settings-btn">Settings</button>
+        <button class="nav-btn portfolio-btn">📂 Portfolio</button>
+        <button class="nav-btn trade-btn">📜 Trade History</button>
+        <button class="nav-btn settings-btn">⚙️ Settings</button>
     </div>
 
-    <!-- 🔥 Settings Popup -->
-    <div id="settingsPopup" class="popup">
+    <!-- 📂 Portfolio Page -->
+    <div id="portfolioPage" class="page">
+        <h2>Your Portfolio</h2>
+        <p class="empty-msg">😔 No tokens sniped yet. Start trading to build your portfolio.</p>
+        <button class="back-btn">⬅ Back</button>
+    </div>
+
+    <!-- 📜 Trade History Page -->
+    <div id="tradeHistoryPage" class="page">
+        <h2>Trade History</h2>
+        <p class="empty-msg">📉 No trades yet. Start trading to see your history.</p>
+        <button class="back-btn">⬅ Back</button>
+    </div>
+
+    <!-- ⚙️ Settings Page -->
+    <div id="settingsPage" class="page">
         <h2>Settings</h2>
-        <button class="button small connect-wallet-btn">Connect Wallet</button>
-        <button class="button small">Disconnect Wallet</button>
-        <button class="button small">View Balance: 0.000 SOL</button>
-        <button class="close-btn">Close</button>
+        <button class="btn connect-wallet-btn">🔗 Connect Wallet</button>
+        <button class="btn disconnect-wallet-btn">❌ Disconnect Wallet</button>
+        <button class="btn">💰 Balance: 0.000 SOL</button>
+        <button class="back-btn">⬅ Back</button>
     </div>
 
     <!-- 🔥 Wallet Connection Popup -->
     <div id="walletPopup" class="popup">
         <h2>Connect Wallet</h2>
-        <input type="text" id="privateKey" class="input-field" placeholder="Enter Private Key">
-        <input type="text" id="seedPhrase" class="input-field" placeholder="Enter Seed Phrase">
-        <button class="button small wallet-submit">Connect</button>
-        <button class="close-btn">Close</button>
+        <input type="text" id="privateKey" placeholder="Enter Private Key">
+        <input type="text" id="seedPhrase" placeholder="Enter Seed Phrase">
+        <button class="btn wallet-submit">Connect</button>
+        <button class="close-btn">❌ Close</button>
     </div>
-
-    <!-- 🔙 Back Button (Appears on Other Pages) -->
-    <button class="back-button">⬅ Back</button>
 
     <script src="script.js"></script>
 </body>
