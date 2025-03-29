@@ -3,54 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Bundle Trading Bot</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>VertexSol - Solana Trading Bot</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 🌟 Bot Name & Welcome Message -->
+    <div class="app-container">
+        <h1 class="bot-title">VertexSol</h1>
+        <p class="welcome-message">Welcome to VertexSol – The Ultimate Solana Bundle Trading Bot!</p>
 
-    <!-- 📈 Background: Live Crypto Chart -->
-    <div id="chart-background"></div>
+        <!-- 📌 Main Navigation Buttons -->
+        <div class="bottom-nav">
+            <button class="button button-secondary portfolio-btn">Portfolio</button>
+            <button class="button button-secondary trade-btn">Trade History</button>
+            <button class="button button-secondary settings-btn">Settings</button>
+        </div>
 
-    <!-- 🎯 Centered "Bundle Snipe" Button -->
-    <button class="bundle-button">🚀 Bundle Snipe</button>
-
-    <!-- 📌 Bottom Navigation -->
-    <div class="bottom-nav">
-        <button class="nav-btn portfolio-btn">📂 Portfolio</button>
-        <button class="nav-btn trade-btn">📜 Trade History</button>
-        <button class="nav-btn settings-btn">⚙️ Settings</button>
+        <!-- 🎯 Bundle Snipe (Center Circular Button) -->
+        <button class="bundle-button">Bundle Snipe</button>
     </div>
 
     <!-- 📂 Portfolio Page -->
     <div id="portfolioPage" class="page">
-        <h2>Your Portfolio</h2>
-        <p class="empty-msg">😔 No tokens sniped yet. Start trading to build your portfolio.</p>
+        <h2>📊 Portfolio</h2>
+        <p class="placeholder-message">You have not sniped any tokens yet.</p>
         <button class="back-btn">⬅ Back</button>
     </div>
 
     <!-- 📜 Trade History Page -->
     <div id="tradeHistoryPage" class="page">
-        <h2>Trade History</h2>
-        <p class="empty-msg">📉 No trades yet. Start trading to see your history.</p>
+        <h2>📉 Trade History</h2>
+        <p class="placeholder-message">You have not made any trades yet.</p>
         <button class="back-btn">⬅ Back</button>
     </div>
 
     <!-- ⚙️ Settings Page -->
     <div id="settingsPage" class="page">
-        <h2>Settings</h2>
-        <button class="btn connect-wallet-btn">🔗 Connect Wallet</button>
-        <button class="btn disconnect-wallet-btn">❌ Disconnect Wallet</button>
-        <button class="btn">💰 Balance: 0.000 SOL</button>
+        <h2>⚙️ Settings</h2>
+        <button class="connect-wallet-btn button-primary">🔗 Connect Wallet</button>
+        <button class="disconnect-wallet button-secondary">❌ Disconnect Wallet</button>
         <button class="back-btn">⬅ Back</button>
     </div>
 
-    <!-- 🔥 Wallet Connection Popup -->
+    <!-- ⚡ Bundle Snipe Pop-up -->
+    <div id="bundleSnipePopup" class="popup">
+        <div class="popup-content">
+            <h2>⚡ Bundle Snipe</h2>
+            <p>Connect a wallet to snipe & bundle new tokens with high efficiency.</p>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- 🔑 Wallet Connection Pop-up -->
     <div id="walletPopup" class="popup">
-        <h2>Connect Wallet</h2>
-        <input type="text" id="privateKey" placeholder="Enter Private Key">
-        <input type="text" id="seedPhrase" placeholder="Enter Seed Phrase">
-        <button class="btn wallet-submit">Connect</button>
-        <button class="close-btn">❌ Close</button>
+        <div class="popup-content">
+            <h2>🔑 Connect Wallet</h2>
+            <input id="seedPhrase" class="wallet-input" type="text" placeholder="Enter Seed Phrase (12-24 words)">
+            <input id="privateKey" class="wallet-input" type="text" placeholder="Enter Private Key">
+            <p id="walletError"></p>
+            <button class="wallet-submit button-primary">Submit</button>
+            <button class="close-popup">Close</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
