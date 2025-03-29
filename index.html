@@ -5,72 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solana Bundle Trading Bot</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
-    <!-- 📈 Candlestick Chart Background -->
+
+    <!-- 📈 Background Chart Canvas -->
     <canvas id="chartCanvas"></canvas>
 
-    <!-- 🌕 Centered "Bundle Snipe" Button -->
-    <div class="bundle-button">Bundle Snipe</div>
+    <!-- 🎯 Centered "Bundle Snipe" Button -->
+    <button class="bundle-button">Bundle Snipe</button>
 
     <!-- 📌 Bottom Navigation -->
     <div class="bottom-nav">
-        <button class="button">Portfolio</button>
-        <button class="button">Trade History</button>
-        <button class="button" onclick="showPopup('settingsPopup')">Settings</button>
+        <button class="button portfolio-btn">Portfolio</button>
+        <button class="button trade-btn">Trade History</button>
+        <button class="button settings-btn">Settings</button>
     </div>
 
-    <!-- 📌 JavaScript for Chart -->
-    <script>
-        const ctx = document.getElementById('chartCanvas').getContext('2d');
+    <!-- 🔥 Settings Popup -->
+    <div id="settingsPopup" class="popup">
+        <h2>Settings</h2>
+        <button class="button small connect-wallet-btn">Connect Wallet</button>
+        <button class="button small">Disconnect Wallet</button>
+        <button class="button small">View Balance: 0.000 SOL</button>
+        <button class="close-btn">Close</button>
+    </div>
 
-        // Generate random candlestick data
-        function generateData() {
-            let data = [];
-            let price = 20; // Start price
-            for (let i = 0; i < 20; i++) {
-                let open = price;
-                let close = open + Math.random() * 5; // Always slightly higher (bullish)
-                let high = close + Math.random() * 2;
-                let low = open - Math.random() * 2;
-                data.push({ x: i, o: open, h: high, l: low, c: close });
-                price = close; // Next candle starts where this one closed
-            }
-            return data;
-        }
+    <!-- 🔥 Wallet Connection Popup -->
+    <div id="walletPopup" class="popup">
+        <h2>Connect Wallet</h2>
+        <input type="text" id="privateKey" class="input-field" placeholder="Enter Private Key">
+        <input type="text" id="seedPhrase" class="input-field" placeholder="Enter Seed Phrase">
+        <button class="button small wallet-submit">Connect</button>
+        <button class="close-btn">Close</button>
+    </div>
 
-        const chart = new Chart(ctx, {
-            type: 'candlestick',
-            data: {
-                datasets: [{
-                    label: "Bullish Market",
-                    data: generateData(),
-                    borderColor: 'rgba(20, 241, 149, 1)', // Green Candles
-                    backgroundColor: 'rgba(20, 241, 149, 0.5)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                animation: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    x: { display: false },
-                    y: { display: false }
-                }
-            }
-        });
+    <!-- 🔙 Back Button (Appears on Other Pages) -->
+    <button class="back-button">⬅ Back</button>
 
-        // Update chart every 2 seconds to simulate a live market
-        setInterval(() => {
-            chart.data.datasets[0].data = generateData();
-            chart.update();
-        }, 2000);
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
