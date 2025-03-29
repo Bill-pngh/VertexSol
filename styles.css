@@ -1,187 +1,99 @@
-/* 🔥 Dark Mode Background */
+/* 🌙 Dark Mode */
 body {
-    background-color: #000000; /* Pure Black */
-    font-family: 'Poppins', sans-serif;
+    background-color: black;
     color: white;
+    font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
-/* 📈 Full-Screen Background Candlestick Chart */
-#chartCanvas {
-    position: fixed;
+/* 📈 Chart Background */
+#chart-background {
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    opacity: 0.2; /* Subtle effect */
-    z-index: -1; /* Keep it in the background */
+    background: url('chart.gif') center/cover no-repeat;
+    opacity: 0.2;
 }
 
-/* 🎯 Centered "Bundle Snipe" Button */
+/* 🎯 Bundle Snipe Button */
 .bundle-button {
-    position: fixed;
-    bottom: 50%;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 50%);
-    background: linear-gradient(135deg, #14F195, #00D1FF);
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    font-size: 18px;
+    background: linear-gradient(45deg, #00FFA3, #00E0FF);
+    border: none;
+    border-radius: 50px;
+    color: black;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(20, 241, 149, 0.8);
-    transition: all 0.3s ease-in-out;
-    border: 3px solid white;
+    transition: 0.3s;
 }
-
 .bundle-button:hover {
-    background: linear-gradient(135deg, #00D1FF, #14F195);
-    box-shadow: 0 0 30px rgba(20, 241, 149, 1);
-    transform: translate(-50%, 50%) scale(1.1);
+    background: linear-gradient(45deg, #00E0FF, #00FFA3);
 }
 
-/* 🛠️ Bottom Navigation Bar */
+/* 📌 Bottom Navigation */
 .bottom-nav {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
     display: flex;
-    gap: 15px;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
 }
-
-/* 🔘 Navigation Buttons */
-.button {
-    background: linear-gradient(135deg, #1E1E1E, #333333);
+.nav-btn {
+    padding: 10px 20px;
+    background: #1A1A1A;
+    border: none;
     color: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    border: 2px solid #14F195;
-    transition: all 0.3s ease-in-out;
-}
-
-.button:hover {
-    background: #14F195;
-    color: black;
-    transform: scale(1.1);
-}
-
-/* 🔙 Back Button */
-.back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: linear-gradient(135deg, #14F195, #00D1FF);
-    color: black;
-    padding: 12px 18px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(20, 241, 149, 0.8);
-    transition: all 0.3s ease-in-out;
-    border: 2px solid white;
+}
+.nav-btn:hover {
+    background: #333;
 }
 
-.back-button:hover {
-    background: linear-gradient(135deg, #00D1FF, #14F195);
-    box-shadow: 0 0 15px rgba(20, 241, 149, 1);
-    transform: scale(1.1);
-}
-
-/* 📢 Beautiful Pop-ups */
+/* 🔥 Popups */
 .popup {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(25, 25, 25, 0.98);
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    width: 85%;
-    max-width: 400px;
-    box-shadow: 0 0 20px rgba(20, 241, 149, 0.7);
-    animation: fadeIn 0.3s ease-in-out;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 163, 0.5);
 }
-
 .popup.show {
     display: block;
 }
 
-/* 🔥 Pop-up Animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -55%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* 📝 Input Fields */
-.input-field {
-    width: 90%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid #14F195;
-    background: #1E1E1E;
-    color: white;
-    font-size: 16px;
-    text-align: center;
-}
-
-/* 📌 Small Buttons for Pop-ups */
-.button.small {
-    background: #14F195;
-    color: black;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.button.small:hover {
-    background: white;
-    color: black;
-}
-
-/* ❌ Close Button */
-.close-btn {
-    background: #FF4444;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.close-btn:hover {
-    background: #FF0000;
-}
-
-/* 📊 Stylish Message Display */
-.message-box {
-    background: linear-gradient(135deg, #1E1E1E, #333333);
+/* 📂 Pages */
+.page {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #222;
     padding: 20px;
     border-radius: 10px;
-    color: white;
+}
+.empty-msg {
     font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    max-width: 400px;
-    margin: 50px auto;
-    box-shadow: 0 0 15px rgba(20, 241, 149, 0.8);
+    color: #888;
+}
+.back-btn {
+    margin-top: 10px;
+    background: red;
+    color: white;
+    padding: 10px;
+    border: none;
 }
