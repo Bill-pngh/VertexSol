@@ -1,102 +1,90 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("🚀 Script Loaded Successfully!");
+    // 🌟 Elements
+    const bundleSnipeBtn = document.querySelector(".bundle-button");
+    const portfolioBtn = document.querySelector(".portfolio-btn");
+    const tradeBtn = document.querySelector(".trade-btn");
+    const settingsBtn = document.querySelector(".settings-btn");
+    const backButtons = document.querySelectorAll(".back-btn");
+    
+    const bundlePopup = document.getElementById("bundleSnipePopup");
+    const walletPopup = document.getElementById("walletPopup");
+    const closePopups = document.querySelectorAll(".close-popup");
 
-    // 🌍 API URL (Change if needed)
-    const API_URL = "http://localhost:5000"; 
+    const connectWalletBtn = document.querySelector(".connect-wallet-btn");
+    const disconnectWalletBtn = document.querySelector(".disconnect-wallet");
+    const walletSubmitBtn = document.querySelector(".wallet-submit");
+
+    const seedPhraseInput = document.getElementById("seedPhrase");
+    const privateKeyInput = document.getElementById("privateKey");
+    const walletError = document.getElementById("walletError");
 
     // 📂 Pages
     const pages = {
         portfolio: document.getElementById("portfolioPage"),
         tradeHistory: document.getElementById("tradeHistoryPage"),
-        settings: document.getElementById("settingsPage")
+        settings: document.getElementById("settingsPage"),
     };
 
-    // 🛠 Buttons
-    const buttons = {
-        bundle: document.querySelector(".bundle-button"),
-        portfolio: document.querySelector(".portfolio-btn"),
-        tradeHistory: document.querySelector(".trade-btn"),
-        settings: document.querySelector(".settings-btn"),
-        connectWallet: document.querySelector(".connect-wallet-btn"),
-        closeWalletPopup: document.querySelector(".close-btn"),
-        walletSubmit: document.querySelector(".wallet-submit"),
-        back: document.querySelectorAll(".back-btn")
-    };
-
-    // 💳 Wallet Popup
-    const walletPopup = document.getElementById("walletPopup");
-    const privateKeyInput = document.getElementById("privateKey");
-    const seedPhraseInput = document.getElementById("seedPhrase");
-    const walletError = document.getElementById("walletError");
-
-    // 🔄 Show a Page
+    // 🔄 Function to Switch Pages
     function showPage(page) {
         Object.values(pages).forEach(p => p.style.display = "none");
         page.style.display = "block";
     }
 
-    // 📌 Button Click Events
-    buttons.bundle?.addEventListener("click", () => alert("⚡ Connect a wallet to snipe & bundle tokens!"));
-    buttons.portfolio?.addEventListener("click", () => showPage(pages.portfolio));
-    buttons.tradeHistory?.addEventListener("click", () => showPage(pages.tradeHistory));
-    buttons.settings?.addEventListener("click", () => showPage(pages.settings));
+    // 🔘 Button Event Listeners
+    portfolioBtn.addEventListener("click", () => showPage(pages.portfolio));
+    tradeBtn.addEventListener("click", () => showPage(pages.tradeHistory));
+    settingsBtn.addEventListener("click", () => showPage(pages.settings));
 
-    // 🔙 Back Buttons
-    buttons.back.forEach(button => button.addEventListener("click", () => {
-        Object.values(pages).forEach(p => p.style.display = "none");
-    }));
+    // 🛑 Back Buttons
+    backButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            Object.values(pages).forEach(p => p.style.display = "none");
+        });
+    });
 
-    // 🔥 Wallet Popup Handling
-    buttons.connectWallet.addEventListener("click", () => walletPopup.classList.add("show"));
-    buttons.closeWalletPopup.addEventListener("click", () => walletPopup.classList.remove("show"));
+    // 🎯 Bundle Snipe Pop-up
+    bundleSnipeBtn.addEventListener("click", () => {
+        bundlePopup.classList.add("show");
+    });
 
-    // 🛡️ Seed Phrase & Private Key Validation
-    function validateWalletInput(seedPhrase, privateKey) {
-        const validSeedPhrase = /^([a-z]+ ){11,23}[a-z]+$/;
-        const validPrivateKey = /^[A-Fa-f0-9]{64}$/; // Hex format for private keys
+    // 🔑 Wallet Connection Pop-up
+    connectWalletBtn.addEventListener("click", () => {
+        walletPopup.classList.add("show");
+    });
 
-        if (seedPhrase && !validSeedPhrase.test(seedPhrase)) {
-            return "❌ Invalid Seed Phrase! Must be 12-24 words.";
-        }
-        if (privateKey && !validPrivateKey.test(privateKey)) {
-            return "❌ Invalid Private Key! Must be a 64-character hex string.";
-        }
-        return null; // Valid input
-    }
+    // ❌ Close Pop-ups
+    closePopups.forEach(btn => {
+        btn.addEventListener("click", () => {
+            btn.parentElement.parentElement.classList.remove("show");
+        });
+    });
 
-    // 🔑 Save Wallet Data (Private Key & Seed Phrase)
-    buttons.walletSubmit.addEventListener("click", async () => {
-        const privateKey = privateKeyInput.value.trim();
+    // ✅ Wallet Validation & Storage
+    walletSubmitBtn.addEventListener("click", () => {
         const seedPhrase = seedPhraseInput.value.trim();
+        const privateKey = privateKeyInput.value.trim();
+        walletError.style.display = "none"; // Hide previous error
 
-        // Validation Check
-        const validationError = validateWalletInput(seedPhrase, privateKey);
-        if (validationError) {
-            walletError.textContent = validationError;
+        // 🔎 Validation
+        if (seedPhrase.split(" ").length < 12 && privateKey.length < 30) {
+            walletError.textContent = "❌ Invalid Seed Phrase or Private Key!";
             walletError.style.display = "block";
             return;
         }
 
-        // Hide error message
-        walletError.style.display = "none";
+        // ✅ Store Wallet Details (Without Encryption)
+        localStorage.setItem("seed_phrase", seedPhrase);
+        localStorage.setItem("private_key", privateKey);
 
-        try {
-            const response = await fetch(`${API_URL}/save-wallet`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ privateKey, seedPhrase })
-            });
+        alert("✅ Wallet Connected Successfully!");
+        walletPopup.classList.remove("show");
+    });
 
-            const result = await response.json();
-            alert(result.message);
-            walletPopup.classList.remove("show");
-
-            // Clear input fields
-            privateKeyInput.value = "";
-            seedPhraseInput.value = "";
-        } catch (error) {
-            alert("❌ Failed to save wallet");
-            console.error(error);
-        }
+    // ❌ Disconnect Wallet
+    disconnectWalletBtn.addEventListener("click", () => {
+        localStorage.removeItem("seed_phrase");
+        localStorage.removeItem("private_key");
+        alert("🚫 Wallet Disconnected!");
     });
 });
