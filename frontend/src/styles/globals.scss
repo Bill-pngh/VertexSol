@@ -1,0 +1,43 @@
+// Base reset and typography
+@import 'reset';
+@import 'typography';
+
+// Core variables
+:root {
+  // Color palette
+  --color-primary: #6E3AFF;
+  --color-secondary: #00FFA3;
+  --color-accent: #FF6B35;
+  --color-dark: #0F0B33;
+  --color-darker: #0A0724;
+  --color-light: #FFFFFF;
+  --color-gray: #7A7A7A;
+
+  // Spacing
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  // Typography
+  --font-base: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+// Base styles
+body {
+  font-family: var(--font-base);
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+// Safe area handling
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(env(safe-area-inset-left), var(--space-md));
+    padding-right: max(env(safe-area-inset-right), var(--space-md));
+  }
+}
