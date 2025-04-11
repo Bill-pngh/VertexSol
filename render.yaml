@@ -2,14 +2,12 @@ services:
   - type: web
     name: vertexsol-backend
     runtime: docker
-    region: frankfurt # or singapore/us
+    region: frankfurt
     branch: main
     envVars:
       - key: NODE_ENV
         value: production
       - key: ENCRYPTION_KEY
-        generateValue: true
-      - key: JWT_SECRET
         generateValue: true
     buildCommand: npm install && npm run build
     startCommand: npm start
@@ -30,5 +28,3 @@ databases:
     region: frankfurt
     plan: free
     databaseName: vertexsol_prod
-    ipAllowList:
-      - group: render-web-services
