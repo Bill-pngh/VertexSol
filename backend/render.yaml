@@ -1,0 +1,45 @@
+# VertexSol Production Deployment
+services:
+  - type: web
+    name: vertexsol-backend
+    runtime: node
+    env: node
+    region: frankfurt  # Recommended for EU users
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /api/ping
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ENCRYPTION_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+    buildCommand: |
+      npm install
+      npm run migrate
+    startCommand: npm start
+    instanceSize: small
+    plan: starter
+    scaling:
+      minInstances: 1
+      maxInstances: 2
+      concurrency: 50
+
+  - type: postgres
+    name: vertexsol-db
+    region: frankfurt
+    branch: main
+    plan: free  # Upgrade to "starter" for production
+    databases:
+      - name: vertexsol_prod
+    ipAllowList:
+      - group: render-web-services
+    security:
+      firewallRules:
+        - name: allow-web-access
+          protocol: tcp
+          port: 5432
+          source: vertexsol-backend
