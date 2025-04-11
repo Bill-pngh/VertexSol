@@ -1,0 +1,103 @@
+# ======================
+# General
+# ======================
+.DS_Store
+*.log
+*.tmp
+*.pid
+*.pid.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ======================
+# Environment Files
+# ======================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.staging
+.env.backup
+.env*.local
+
+# Never commit secrets!
+secrets/
+credentials.json
+serviceAccountKey.json
+*.key
+*.pem
+*.crt
+
+# ======================
+# Backend (Node.js)
+# ======================
+backend/node_modules/
+backend/.env
+backend/dist/
+backend/coverage/
+backend/.nyc_output/
+backend/.cache/
+backend/.env
+backend/.env.test
+backend/.env.prod
+
+# PostgreSQL
+backend/pgdata/
+backend/postgres-data/
+
+# ======================
+# Frontend
+# ======================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.eslintcache
+frontend/.vite/
+frontend/.cache/
+
+# Build files
+frontend/**/*.js.map
+frontend/**/*.css.map
+
+# ======================
+# Testing
+# ======================
+cypress/videos/
+cypress/screenshots/
+*.seed
+*.mock
+
+# ======================
+# Editor/IDE
+# ======================
+.idea
+.vscode
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# ======================
+# System Files
+# ======================
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# ======================
+# Package Manager
+# ======================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
