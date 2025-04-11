@@ -5,20 +5,26 @@
   "type": "module",
   "engines": {
     "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "npm": ">=9.0.0",
+    "pnpm": ">=8.0.0"  // Added for pnpm users
   },
   "scripts": {
-    "start": "NODE_ENV=production node src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "NODE_ENV=production node --enable-source-maps src/app.js",
+    "dev": "nodemon --watch src --exec node --enable-source-maps src/app.js",
     "migrate": "sequelize-cli db:migrate",
+    "migrate:reset": "sequelize-cli db:migrate:undo:all && npm run migrate",
     "seed": "sequelize-cli db:seed:all",
-    "lint": "eslint src/",
-    "test": "NODE_ENV=test jest --coverage",
-    "security-check": "npm audit --production"
+    "lint": "eslint src/ --fix --ext .js",
+    "test": "NODE_ENV=test jest --coverage --detectOpenHandles",
+    "test:watch": "jest --watch",
+    "security-check": "npm audit --production --audit-level=critical",
+    "docker:build": "docker build -t vertexsol-backend .",
+    "docker:run": "docker run -p 3000:3000 --env-file .env vertexsol-backend"
   },
   "dependencies": {
     "@solana/web3.js": "^1.100.0",
     "axios": "^1.6.2",
+    "compression": "^1.7.4",  // Added for response compression
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",
@@ -27,29 +33,52 @@
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",  // Added for Sequelize
     "sequelize": "^6.37.0",
     "sequelize-cli": "^6.6.1",
-    "url-search-params-polyfill": "^8.1.1"
+    "url-search-params-polyfill": "^8.1.1",
+    "winston": "^3.11.0"  // Added for structured logging
   },
   "devDependencies": {
+    "@types/jest": "^29.5.11",  // Added for TypeScript-like hints
+    "@types/node": "^20.11.19",  // Node type definitions
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^16.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-security": "^1.7.1",  // Added security rules
     "jest": "^29.7.0",
     "nodemon": "^3.0.2",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "swagger-jsdoc": "^6.2.8",  // API documentation
+    "swagger-ui-express": "^5.0.0"  // API docs UI
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/tests/"
-    ]
+      "/tests/",
+      "/src/utils/logger.js"  // Exclude logger from coverage
+    ],
+    "setupFilesAfterEnv": ["./tests/setup.js"]  // Test setup file
   },
   "eslintConfig": {
-    "extends": "airbnb-base",
+    "extends": [
+      "airbnb-base",
+      "plugin:security/recommended"  // Security rules
+    ],
     "rules": {
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
-    }
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+      "security/detect-object-injection": "off",  // Disabled for performance
+      "no-await-in-loop": "warn",
+      "no-console": ["error", { "allow": ["warn", "error"] }]
+    },
+    "overrides": [
+      {
+        "files": ["**/*.test.js"],
+        "rules": {
+          "no-unused-expressions": "off"
+        }
+      }
+    ]
   }
 }
