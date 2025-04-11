@@ -1,22 +1,17 @@
 services:
   - type: web
     name: vertexsol-backend
-    env: node
     runtime: docker
-    region: frankfurt # Choose closest to your users
+    region: frankfurt # or singapore/us
     branch: main
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PG_HOST
-        fromDatabase:
-          name: vertexsol-db
-          property: host
-      - key: PG_PASSWORD
-        fromDatabase:
-          name: vertexsol-db
-          property: password
-    buildCommand: npm run build
+      - key: ENCRYPTION_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+    buildCommand: npm install && npm run build
     startCommand: npm start
 
   - type: web
@@ -24,17 +19,16 @@ services:
     env: docker
     region: frankfurt
     branch: main
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
         value: https://vertexsol-backend.onrender.com
 
-  - type: postgres
-    name: vertexsol-db
+databases:
+  - name: vertexsol-db
     region: frankfurt
-    plan: free # Upgrade for production
-    databases:
-      - name: vertexsol_prod
+    plan: free
+    databaseName: vertexsol_prod
     ipAllowList:
       - group: render-web-services
