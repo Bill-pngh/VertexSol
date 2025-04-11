@@ -1,0 +1,33 @@
+{
+  "name": "VertexSol",
+  "short_name": "VertexSol",
+  "description": "Solana Meme Coin Trading Game",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0F0B33",
+  "background_color": "#0F0B33",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/maskable-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "related_applications": [{
+    "platform": "webapp",
+    "url": "https://yourdomain.com/manifest.json"
+  }]
+}
