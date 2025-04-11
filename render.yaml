@@ -1,7 +1,8 @@
 services:
+  # Backend Service (Node.js)
   - type: web
     name: vertexsol-backend
-    runtime: docker
+    runtime: node  # Changed from docker to node
     region: frankfurt
     branch: main
     envVars:
@@ -9,16 +10,18 @@ services:
         value: production
       - key: ENCRYPTION_KEY
         generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: npm start  # Now valid with node runtime
 
-  - type: web
+  # Frontend Service (Static)
+  - type: static  # Changed from web to static
     name: vertexsol-frontend
-    env: docker
     region: frankfurt
     branch: main
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    publishPath: ./dist  # Correct key for static sites
     envVars:
       - key: VITE_API_URL
         value: https://vertexsol-backend.onrender.com
