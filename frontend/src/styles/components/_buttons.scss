@@ -1,0 +1,39 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  gap: var(--space-xs);
+
+  &-primary {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(110, 58, 255, 0.3);
+    }
+  }
+
+  &-outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    
+    &:hover {
+      background: rgba(110, 58, 255, 0.1);
+    }
+  }
+
+  &-icon {
+    padding: var(--space-sm);
+    border-radius: 50%;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
